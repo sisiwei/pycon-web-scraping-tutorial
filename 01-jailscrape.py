@@ -2,6 +2,7 @@ import requests
 import csv
 
 try:
+    # For Python 3
     from bs4 import BeautifulSoup
 except ImportError:
     # For Python 2.7

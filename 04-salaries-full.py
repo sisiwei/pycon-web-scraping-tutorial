@@ -1,6 +1,10 @@
 import csv
 from mechanize import Browser
-from BeautifulSoup import BeautifulSoup
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    from BeautifulSoup import BeautifulSoup
 
 # How many pages do you want to retrieve?
 NUMBER_OF_PAGES = 4
@@ -55,17 +59,17 @@ for i in range(NUMBER_OF_PAGES):
     # This is the same as the equivalent chunk in salaries-mechanize, only we're doing
     # it for multiple pages, rather than just one.
     for row in results_table.findAll('tr'):
-        
+
         output_row = []
 
         for cell in row.findAll('td'):
             output_row.append(cell.text)
-        
+
         output.append(output_row)
 
 ########## STEP 4: Write results to file ##########
 
-print output
+print(output)
 
 handle = open('out-mechanize.csv', 'a')
 outfile = csv.writer(handle)

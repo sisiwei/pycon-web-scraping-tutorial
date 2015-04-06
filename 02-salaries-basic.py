@@ -1,6 +1,13 @@
 import requests
 import csv
-from BeautifulSoup import BeautifulSoup
+
+try:
+    # For Python 3
+    from bs4 import BeautifulSoup
+except ImportError:
+    # For Python 2.7
+    from BeautifulSoup import BeautifulSoup
+
 
 ########## STEP 1: Open and read the URL ##########
 
@@ -28,7 +35,7 @@ for row in results_table.findAll('tr'):
 
 ########## STEP 4: Write results to file ##########
 
-print output
+print(output)
 
 handle = open('out-basic.csv', 'a')
 outfile = csv.writer(handle)

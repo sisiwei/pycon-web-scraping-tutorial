@@ -1,6 +1,11 @@
 import csv
 from mechanize import Browser
-from BeautifulSoup import BeautifulSoup
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    from BeautifulSoup import BeautifulSoup
+
 
 ########## STEP 1: Open and read the URL ##########
 
@@ -43,7 +48,7 @@ for row in results_table.findAll('tr'):
 
 ########## STEP 5: Write results to file ##########
 
-print output
+print(output)
 
 handle = open('out-mechanize.csv', 'a')
 outfile = csv.writer(handle)
