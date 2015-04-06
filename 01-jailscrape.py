@@ -21,7 +21,7 @@ for row in results_table.findAll('tr'):
     # We'll store all of the values for each given row in a list
     output_rows = []
 
-    for cell in tr.findAll('td'):
+    for cell in row.findAll('td'):
         # Delete annoying tab character
         output_rows.append(cell.text.replace('&nbsp;', ''))
 
