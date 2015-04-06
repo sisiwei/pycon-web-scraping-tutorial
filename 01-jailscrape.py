@@ -1,6 +1,11 @@
 import requests
 import csv
-from BeautifulSoup import BeautifulSoup
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    # For Python 2.7
+    from BeautifulSoup import BeautifulSoup
 
 url = 'http://www.showmeboone.com/sheriff/JailResidents/JailResidents.asp'
 
@@ -30,7 +35,7 @@ for row in results_table.findAll('tr'):
 
 # Finally, we'll write our results to a file
 
-print output
+print(output)
 
 handle = open('out-using-requests.csv', 'a')
 outfile = csv.writer(handle)
