@@ -1,5 +1,5 @@
 import csv
-from mechanize import Browser
+import mechanicalsoup
 
 try:
     from bs4 import BeautifulSoup
@@ -12,21 +12,27 @@ except ImportError:
 url = 'http://mapyourtaxes.mo.gov/MAP/Employees/Employee/searchemployees.aspx'
 
 # Create a new browser object and open the URL
-br = Browser()
-br.open(url)
+br = mechanicalsoup.Browser()
+form_page = br.get(url)
 
 ########## STEP 2: Select and fill out the appropriate form ##########
 
 # Select the appropriate form, which we'll find by looking in Chrome
-br.select_form("ctl01")
+html_form = form_page.soup.select('#ctl01')
 
 # Each control can be set. Dropdown lists are handled as lists, text fields take text
-br.form['SearchEmployees1$CalendarYear1$ddlCalendarYear'] = ['2013']
-br.form['SearchEmployees1$ddlAgencies'] = ['931']
-br.form['SearchEmployees1$txtLastName'] = '%'
+
+year_id = '#SearchEmployees1_CalendarYear1_ddlCalendarYear'
+html_form[0].select(year_id)[0]['value'] = 2013
+
+agency_id = '#SearchEmployees1_ddlAgencies'
+html_form[0].select(agency_id)[0]['value'] = 931
+
+lastname_id = '#SearchEmployees1_txtLastName'
+html_form[0].select(lastname_id)[0]['value'] = '%'
 
 # Submit the form
-br.submit()
+br.submit(html_form, form_page.url)
 
 ########## STEP 3: Grab and parse the HTML ##########
 
