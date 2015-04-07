@@ -18,26 +18,35 @@ form_page = br.get(url)
 ########## STEP 2: Select and fill out the appropriate form ##########
 
 # Select the appropriate form, which we'll find by looking in Chrome
-html_form = form_page.soup.select('#ctl01')
+html_form = form_page.soup.select('#ctl01')[0]
 
 # Each control can be set. Dropdown lists are handled as lists, text fields take text
 
 year_id = '#SearchEmployees1_CalendarYear1_ddlCalendarYear'
-html_form[0].select(year_id)[0]['value'] = 2013
+year_options = html_form.select(year_id)[0].select('option')
+
+for row in year_options:
+	if row['value'] == '2013':
+		row['selected'] = 'selected'
+
+year_options = html_form.select(year_id)[0] = ['2013']
 
 agency_id = '#SearchEmployees1_ddlAgencies'
-html_form[0].select(agency_id)[0]['value'] = 931
+agency_options = html_form.select(agency_id)[0].select('option')
+
+for row in agency_options:
+	if row['value'] == '931':
+		row['selected'] = 'selected'
 
 lastname_id = '#SearchEmployees1_txtLastName'
-html_form[0].select(lastname_id)[0]['value'] = '%'
+html_form.select(lastname_id)[0]['value'] = 'test'
 
 # Submit the form
-br.submit(html_form, form_page.url)
+new_page = br.submit(html_form, form_page.url)
 
 ########## STEP 3: Grab and parse the HTML ##########
 
-soup = BeautifulSoup(br.response())
-results_table = soup.find('table', attrs={'id': 'grdEmployees'})
+results_table = new_page.soup.find('table', attrs={'id': 'grdEmployees'})
 
 ########## STEP 4: Iterate through the results and write to an output list ##########
 
