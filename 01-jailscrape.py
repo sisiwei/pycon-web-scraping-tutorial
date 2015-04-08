@@ -1,12 +1,6 @@
 import requests
 import csv
-
-try:
-    # For Python 3
-    from bs4 import BeautifulSoup
-except ImportError:
-    # For Python 2.7
-    from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup
 
 url = 'http://www.showmeboone.com/sheriff/JailResidents/JailResidents.asp'
 

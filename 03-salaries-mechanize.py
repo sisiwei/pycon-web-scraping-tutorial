@@ -1,11 +1,6 @@
 import csv
 from mechanize import Browser
-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from BeautifulSoup import BeautifulSoup
-
+from BeautifulSoup import BeautifulSoup
 
 ########## STEP 1: Open and read the URL ##########
 

@@ -1,10 +1,6 @@
 import csv
 from mechanize import Browser
-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup
 
 # How many pages do you want to retrieve?
 NUMBER_OF_PAGES = 4
